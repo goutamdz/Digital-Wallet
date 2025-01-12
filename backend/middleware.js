@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const authMiddleware = async (req, res, next) => {
     console.log("going into middleware")
     const authHeader=req.headers['authorization'];
+    console.log("auth: "+authHeader);
 
     if(!authHeader || !authHeader.startsWith('Bearer ')){
         return res.json({message:"No token provided"});
@@ -14,8 +15,8 @@ const authMiddleware = async (req, res, next) => {
     try{
         const decoded = jwt.verify(token, JWT_SECRET);
         
-        if(decoded.id){
-            req.userId = decoded.id;
+        if(decoded.userId){
+            req.userId = decoded.userId;
         }
         next();
     }

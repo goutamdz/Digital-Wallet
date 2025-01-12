@@ -113,6 +113,17 @@ router.get("/bulk", async (req, res) => {
     })
 })
 
+router.get("/getName",authMiddleware,async(req,res)=>{
+    try{
+        let user=await User.findOne({_id:req.userId})
+        res.json({"firstname":user.firstname})
+    }
+    catch(err){
+        res.json({"firstname":"error"})
+    }
+
+})
+
 
 module.exports = router;
 //api/v1/user
