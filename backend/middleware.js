@@ -2,6 +2,7 @@ const {JWT_SECRET} = require('./config');
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = async (req, res, next) => {
+    console.log("going into middleware")
     const authHeader=req.headers['authorization'];
 
     if(!authHeader || !authHeader.startsWith('Bearer ')){
@@ -12,8 +13,9 @@ const authMiddleware = async (req, res, next) => {
 
     try{
         const decoded = jwt.verify(token, JWT_SECRET);
-        if(decoded.userId){
-            req.userId = decoded.userId;
+        
+        if(decoded.id){
+            req.userId = decoded.id;
         }
         next();
     }
