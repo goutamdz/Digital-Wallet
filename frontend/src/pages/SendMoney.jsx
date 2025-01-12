@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const SendMoney = () => {
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const firstname = searchParams.get("firstname")
     // console.log(id + " " + firstname);
+    const navigate=useNavigate();
     const [amount, setAmount] = useState(0);
     const handleTransfer = async () => {
         try {
@@ -24,6 +26,7 @@ export const SendMoney = () => {
             );
             console.log("Transfer successful:", response.data);
             alert("Transfer successful!");
+            navigate("/dashboard");
         } catch (error) {
             console.error("Error during transfer:", error.message);
             alert("Transfer failed. Please try again.");
